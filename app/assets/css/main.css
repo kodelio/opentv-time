@@ -1,0 +1,90 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+/*
+ * Movie-theater feel: deep slightly blue black, warm projector glow,
+ * and restrained elevated surfaces.
+ */
+.dark {
+  --ui-bg: #0a0a0d;
+  --ui-bg-muted: #101014;
+  --ui-bg-elevated: #16161c;
+  --ui-bg-accented: #1e1e26;
+  --ui-border: rgb(255 255 255 / 0.08);
+  --ui-border-muted: rgb(255 255 255 / 0.05);
+  --ui-border-accented: rgb(255 255 255 / 0.14);
+  --ui-radius: 0.625rem;
+}
+
+body {
+  background:
+    radial-gradient(70rem 42rem at 85% -12%, rgb(245 158 11 / 0.055), transparent 60%),
+    radial-gradient(55rem 36rem at -12% -4%, rgb(129 100 255 / 0.045), transparent 60%),
+    var(--ui-bg);
+  background-attachment: fixed;
+}
+
+/* Poster frame with a warm hover glow. */
+.poster-frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: calc(var(--ui-radius) * 1.4);
+  background-color: var(--ui-bg-elevated);
+  outline: 1px solid rgb(255 255 255 / 0.08);
+  outline-offset: -1px;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    outline-color 0.3s ease;
+}
+
+.group:hover .poster-frame,
+a:focus-visible .poster-frame {
+  transform: translateY(-3px);
+  outline-color: rgb(245 158 11 / 0.45);
+  box-shadow:
+    0 14px 34px -10px rgb(0 0 0 / 0.7),
+    0 0 28px -8px rgb(245 158 11 / 0.3);
+}
+
+/* Gradient veil over hero backdrops. */
+.hero-gradient {
+  background: linear-gradient(
+    to top,
+    var(--ui-bg) 4%,
+    color-mix(in srgb, var(--ui-bg) 55%, transparent) 45%,
+    transparent 100%
+  );
+}
+
+/* Sur-titre de section. */
+.eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ui-text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .poster-frame,
+  .poster-frame img {
+    transition: none;
+  }
+}
+
+:where(
+  a[href],
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  [role="menuitem"]:not([aria-disabled="true"]),
+  summary,
+  label[for],
+  select
+) {
+  cursor: pointer;
+}
+
+:where(button:disabled, [aria-disabled="true"]) {
+  cursor: not-allowed;
+}

@@ -1,0 +1,6 @@
+key,s_id,episode_id,ep_id,season_number,s_no,episode_number,ep_no,series_name,created_at,updated_at
+watch-episode-1,700001,,,3,,5,,Série Démo Alpha,2021-09-20 09:24:07,2021-09-20 09:24:07
+rewatch-episode-2,700001,,,3,,6,,Série Démo Alpha,2025-04-16 19:22:58,2025-04-16 19:22:58
+watch-episode-3,700001,,990001,,3,,99,Série Démo Alpha,2021-10-01 12:00:00,2021-10-01 12:00:00
+watch-episode-5,700001,990002,,3,,88,,Série Démo Alpha,2021-11-01 00:00:00,2021-11-01 00:00:00
+user-series-700001,700001,,,,,,,Série Démo Alpha,2021-09-20 09:24:07,2021-09-20 09:24:07

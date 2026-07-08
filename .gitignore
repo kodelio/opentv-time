@@ -1,0 +1,32 @@
+# Nuxt
+.nuxt
+.output
+.data
+dist
+
+# Node
+node_modules
+*.log
+
+# Env
+.env
+.env.*
+!.env.example
+
+# Database (données personnelles, hors repo)
+data/
+
+# Sauvegarde locale (hors repo)
+tvtime-backup/
+
+# Tests
+coverage/
+
+# OS / IDE
+.DS_Store
+
+# Agents IA (config locale)
+.claude/
+
+# Promo (screenshots + textes de com, hors dépôt)
+promo/

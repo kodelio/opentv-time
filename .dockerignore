@@ -1,0 +1,14 @@
+node_modules
+.nuxt
+.output
+.git
+.data
+data
+tvtime-backup
+tvtime-backup.zip
+coverage
+tests
+*.log
+.env
+.env.*
+.claude

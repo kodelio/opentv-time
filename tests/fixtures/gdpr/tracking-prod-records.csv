@@ -1,0 +1,7 @@
+type,entity_type,series_id,uuid,episode_id,season_number,episode_number,series_name,watch_date_range_key,watch_date,movie_name,release_date,runtime,alpha_range_key,created_at,updated_at
+watch,episode,700001,ep-v1-1,880009,3,9,Série Démo Alpha,watch-date-1624524048,,,,,,2021-01-01 00:00:00,
+watch,movie,,mv-1,,,,,watch-date-1756236320,,Film Démo Un,2025-06-25,7200,watch-alpha-film-demo-un,2025-06-26 20:00:00,
+watch,movie,,mv-2,,,,,,,"Film Démo, Deux",2024-03-10,10800,watch-alpha-film-demo-deux,2024-03-11 18:00:00,
+towatch,movie,,mv-3,,,,,,,Film Démo Trois,2026-01-01,6000,watch-alpha-film-demo-trois,2023-06-21 08:53:02,
+follow,show,700001,fl-1,,,,Série Démo Alpha,,,,,,,2015-01-01 00:00:00,
+rewatch_count,movie,,rc-1,,,,,,,Film Démo Un,,,,,

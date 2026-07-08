@@ -1,0 +1,20 @@
+services:
+  opentvtime:
+    build: .
+    container_name: opentvtime
+    ports:
+      - "3002:3000"
+    environment:
+      # Permissions self-hosted : l'entrypoint chowne /data et fait tourner le serveur
+      # sous cet uid:gid → pas d'erreur SQLITE_READONLY. Adapte PUID/PGID à ton hôte
+      # (par ex. 99:100 sur Unraid, souvent 1000:1000 sur un Linux classique).
+      - PUID=99
+      - PGID=100
+      # Jeton d'accès en lecture TMDB (v4) — à définir dans un fichier .env à côté de ce compose
+      - NUXT_TMDB_API_KEY=${NUXT_TMDB_API_KEY:?Définis NUXT_TMDB_API_KEY dans .env}
+      # Fuseau horaire pour les dates de la vue « À venir »
+      - TZ=Europe/Paris
+    volumes:
+      # La base SQLite (copier ici la base importée en local : ./data/opentvtime.sqlite)
+      - ./data:/data
+    restart: unless-stopped
