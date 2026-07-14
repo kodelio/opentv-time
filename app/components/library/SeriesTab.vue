@@ -61,10 +61,7 @@ const groups = computed(() => {
 
     <div v-else-if="groups" class="space-y-8">
       <section v-for="group in groups" :key="group.key">
-        <h2 class="eyebrow mb-3 flex items-baseline gap-2">
-          {{ t(groupTitleKeys[group.key]) }}
-          <span class="font-normal text-dimmed">{{ group.items.length }}</span>
-        </h2>
+        <SectionHeader :label="t(groupTitleKeys[group.key])" :count="group.items.length" />
         <div class="grid grid-cols-3 gap-3 sm:grid-cols-4 lg:grid-cols-6">
           <MediaPosterCard
             v-for="show in group.items"

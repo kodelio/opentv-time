@@ -23,6 +23,20 @@ export function showRoute(showId: number | string): string {
   return `/shows/${showId}`
 }
 
+/** Route prefixes that belong to the "Library" tab (detail pages included). */
+const LIBRARY_PREFIXES = ['/library', '/shows', '/movies', '/series', '/films'] as const
+
+/** Whether a nav item is active for the current path. */
+export function isNavItemActive(to: string, path: string): boolean {
+  if (to === ROUTES.home) {
+    return path === '/'
+  }
+  if (to === ROUTES.library) {
+    return LIBRARY_PREFIXES.some(prefix => path.startsWith(prefix))
+  }
+  return path.startsWith(to)
+}
+
 export const APP_NAV_ITEMS: readonly AppNavItem[] = [
   { labelKey: 'nav.home', to: ROUTES.home, icon: 'i-lucide-house' },
   { labelKey: 'nav.upcoming', to: ROUTES.upcoming, icon: 'i-lucide-calendar-days' },

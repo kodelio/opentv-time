@@ -174,9 +174,9 @@ async function addItem(tmdbId: number, title: string) {
       <UTabs v-model="mediaType" :items="typeTabs" size="sm" :content="false" />
     </div>
 
-    <h2 class="eyebrow mb-3">
-      {{ isSearching ? t('discover.resultsFor', { query: debouncedQuery }) : t('discover.weeklyTrending') }}
-    </h2>
+    <SectionHeader
+      :label="isSearching ? t('discover.resultsFor', { query: debouncedQuery }) : t('discover.weeklyTrending')"
+    />
 
     <div v-if="isLoading" class="grid grid-cols-3 gap-3 sm:grid-cols-4 lg:grid-cols-6">
       <USkeleton v-for="index in 12" :key="index" class="aspect-[2/3] w-full" />

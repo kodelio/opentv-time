@@ -35,7 +35,7 @@ const menuItems = computed(() => {
 <template>
   <div class="flex items-center gap-3 py-2">
     <UButton
-      :icon="episode.watchCount > 0 ? 'i-lucide-check-circle-2' : 'i-lucide-circle'"
+      :icon="episode.watchCount > 0 ? 'i-lucide-circle-check-big' : 'i-lucide-circle'"
       :color="episode.watchCount > 0 ? 'primary' : 'neutral'"
       variant="ghost"
       size="lg"

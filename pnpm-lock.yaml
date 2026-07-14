@@ -36,6 +36,9 @@ importers:
         specifier: ^4.4.3
         version: 4.4.3
     devDependencies:
+      '@iconify-json/lucide':
+        specifier: ^1.2.116
+        version: 1.2.116
       '@nuxt/test-utils':
         specifier: ^4.0.3
         version: 4.0.3(crossws@0.4.6(srvx@0.11.17))(esbuild@0.28.1)(happy-dom@20.10.6)(magicast@0.5.3)(rollup@4.62.2)(typescript@6.0.3)(vite@7.3.6(@types/node@26.0.1)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0))(vitest@4.1.9)
@@ -1311,6 +1314,9 @@ packages:
 
   '@floating-ui/vue@1.1.11':
     resolution: {integrity: sha512-HzHKCNVxnGS35r9fCHBc3+uCnjw9IWIlCPL683cGgM9Kgj2BiAl8x1mS7vtvP6F9S/e/q4O6MApwSHj8hNLGfw==}
+
+  '@iconify-json/lucide@1.2.116':
+    resolution: {integrity: sha512-mbwPmiUXaZyLMSeQOxiTqz2fmZikD9qiGnMBiev47UUNY9uGCEgMg9iUYwaJzCtJTDtAIyK4vokfIpqsVorgSw==}
 
   '@iconify/collections@1.0.701':
     resolution: {integrity: sha512-J+8LSwG2ZMUTKEi9Bgg1ZameKZixK9oqzoN4+OHyRfYMUv1ZblORCoAcmz8crsAz9Wjm96Xjl4kKmRs/lWtNzQ==}
@@ -7438,6 +7444,10 @@ snapshots:
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
+
+  '@iconify-json/lucide@1.2.116':
+    dependencies:
+      '@iconify/types': 2.0.0
 
   '@iconify/collections@1.0.701':
     dependencies:

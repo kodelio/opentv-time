@@ -13,6 +13,7 @@ export interface UpNextItem {
   readonly episodeNumber: number
   readonly episodeName: string | null
   readonly airDate: string | null
+  readonly runtime: number | null
   readonly remaining: number
   readonly lastWatchedAt: string | null
   readonly followedAt: string | null
@@ -44,6 +45,7 @@ export function upNext(db: Db): readonly UpNextItem[] {
       episodeNumber: episodes.episodeNumber,
       name: episodes.name,
       airDate: episodes.airDate,
+      runtime: episodes.runtime,
     })
     .from(episodes)
     .where(
@@ -86,6 +88,7 @@ export function upNext(db: Db): readonly UpNextItem[] {
           episodeNumber: episode.episodeNumber,
           episodeName: episode.name,
           airDate: episode.airDate,
+          runtime: episode.runtime,
           remaining: (showProgress?.aired ?? 0) - (showProgress?.watched ?? 0),
           lastWatchedAt: lastWatched.get(show.id) ?? null,
           followedAt: show.followedAt,

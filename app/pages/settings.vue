@@ -69,15 +69,15 @@ async function runSync() {
 </script>
 
 <template>
-  <div class="min-w-0">
-    <h1 class="mb-4 text-xl font-semibold">{{ t('settings.title') }}</h1>
+  <div class="mx-auto min-w-0 max-w-3xl">
+    <h1 class="mb-6 text-2xl font-bold tracking-tight">{{ t('settings.title') }}</h1>
 
     <section class="mb-8">
       <h2 class="mb-1 font-medium">{{ t('settings.displayTitle') }}</h2>
       <p class="mb-3 break-words text-sm text-muted">
         {{ t('settings.displayDescription') }}
       </p>
-      <UCard class="min-w-0 overflow-hidden" :ui="{ body: 'p-4 sm:p-4' }">
+      <div class="panel min-w-0 overflow-hidden p-4">
         <UFormField :label="t('settings.languageLabel')">
           <USelect
             :model-value="language"
@@ -87,15 +87,23 @@ async function runSync() {
             @update:model-value="value => saveLanguage(value as AppLanguage)"
           />
         </UFormField>
-      </UCard>
+      </div>
     </section>
 
     <section class="mb-8">
-      <h2 class="mb-1 font-medium">{{ t('settings.tmdbSyncTitle') }}</h2>
+      <div class="mb-3 flex items-center gap-2">
+        <h2 class="font-medium">{{ t('settings.tmdbSyncTitle') }}</h2>
+        <span
+          class="inline-flex items-center gap-1.5 rounded-md bg-success/10 px-2 py-0.5 text-xs font-medium text-success ring-1 ring-success/25"
+        >
+          <UIcon name="i-lucide-circle-check-big" class="size-3.5" />
+          {{ t('settings.connected') }}
+        </span>
+      </div>
       <p class="mb-3 break-words text-sm text-muted">
         {{ t('settings.tmdbSyncDescription') }}
       </p>
-      <UCard class="min-w-0 overflow-hidden" :ui="{ body: 'p-4 sm:p-4' }">
+      <div class="panel min-w-0 overflow-hidden p-4">
         <div class="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div class="min-w-0 text-sm">
             <template v-if="lastSync">
@@ -121,7 +129,7 @@ async function runSync() {
             @click="runSync"
           />
         </div>
-      </UCard>
+      </div>
     </section>
 
     <section class="mb-8">

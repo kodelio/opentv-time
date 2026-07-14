@@ -153,7 +153,16 @@ function onModalConfirm(watchedAt: string) {
   </UEmpty>
 
   <div v-else-if="show">
-    <div class="relative -mx-4 -mt-6 mb-4 h-56 overflow-hidden md:h-80 md:rounded-b-2xl">
+    <UButton
+      to="/library"
+      icon="i-lucide-undo-2"
+      :label="t('show.backToLibrary')"
+      variant="link"
+      color="neutral"
+      class="-ml-1 mb-2"
+    />
+
+    <div class="relative -mx-4 mb-4 h-52 overflow-hidden md:h-80 md:rounded-b-2xl">
       <MediaTmdbImage :path="show.backdropPath" :alt="show.name" kind="backdrop" />
       <div class="hero-gradient absolute inset-0" />
     </div>
@@ -173,14 +182,11 @@ function onModalConfirm(watchedAt: string) {
           <template v-if="show.status"> · {{ showStatusLabel(show.status) }}</template>
         </p>
         <div class="mt-2 flex flex-wrap gap-1.5">
-          <UBadge
+          <span
             v-for="genre in show.genres"
             :key="genre"
-            :label="genre"
-            color="neutral"
-            variant="subtle"
-            size="sm"
-          />
+            class="rounded-md bg-elevated px-2 py-0.5 text-xs font-medium text-toned ring-1 ring-white/15"
+          >{{ genre }}</span>
         </div>
         <ShowProgress
           class="mt-3 max-w-xs"

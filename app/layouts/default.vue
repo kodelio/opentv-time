@@ -7,7 +7,7 @@ const desktopNavItems = computed(() =>
     label: t(item.labelKey),
     to: item.to,
     icon: item.icon,
-    active: item.to === '/' ? route.path === '/' : route.path.startsWith(item.to),
+    active: isNavItemActive(item.to, route.path),
   })),
 )
 </script>
@@ -27,13 +27,33 @@ const desktopNavItems = computed(() =>
           </span>
           <span>Open TV Time</span>
         </NuxtLink>
-        <UNavigationMenu :items="desktopNavItems" class="hidden md:flex" />
+        <nav class="hidden items-center gap-1 md:flex">
+          <NuxtLink
+            v-for="item in desktopNavItems"
+            :key="item.to"
+            :to="item.to"
+            class="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm font-medium transition-colors"
+            :class="
+              item.active
+                ? 'bg-accented/60 text-highlighted'
+                : 'text-muted hover:bg-white/5 hover:text-default'
+            "
+          >
+            <UIcon
+              :name="item.icon"
+              class="size-5"
+              :class="item.active ? 'text-default' : 'text-dimmed'"
+            />
+            {{ item.label }}
+          </NuxtLink>
+        </nav>
         <UButton
           to="/settings"
           icon="i-lucide-settings"
           color="neutral"
           variant="ghost"
           :aria-label="t('nav.settings')"
+          :class="route.path.startsWith('/settings') ? 'text-primary' : ''"
         />
       </div>
       <div

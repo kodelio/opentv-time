@@ -57,7 +57,14 @@ a:focus-visible .poster-frame {
   );
 }
 
-/* Sur-titre de section. */
+/* Panel: standard card surface (stats, settings, lists). */
+.panel {
+  background-color: var(--ui-bg-muted);
+  border-radius: 0.625rem;
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.08);
+}
+
+/* Section eyebrow. */
 .eyebrow {
   font-size: 0.6875rem;
   font-weight: 600;

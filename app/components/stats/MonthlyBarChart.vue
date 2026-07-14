@@ -63,7 +63,7 @@ const bars = computed<readonly BarShape[]>(() =>
 </script>
 
 <template>
-  <UCard>
+  <div class="panel p-4">
     <div class="mb-3 flex items-center justify-between">
       <h3 class="text-sm font-medium">{{ t('stats.monthlyTitle') }}</h3>
       <div class="flex items-center gap-3 text-xs text-muted">
@@ -132,5 +132,5 @@ const bars = computed<readonly BarShape[]>(() =>
         </text>
       </g>
     </svg>
-  </UCard>
+  </div>
 </template>

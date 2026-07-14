@@ -126,6 +126,50 @@ export function shortMonthLabel(yearMonth: string): string {
   )
 }
 
+function isoDaysFromToday(days: number): string {
+  return new Date(Date.now() + days * MINUTES_PER_DAY * 60 * 1000).toISOString().slice(0, 10)
+}
+
+function capitalize(value: string): string {
+  return value.charAt(0).toUpperCase() + value.slice(1)
+}
+
+/** "Out yesterday" / "Out Thursday" / "Out Jul 3" label for an already-aired episode. */
+export function releasedLabel(isoDate: string | null | undefined): string {
+  if (!isoDate) {
+    return ''
+  }
+  const today = todayIsoDate()
+  if (isoDate >= today) {
+    return t('home.released.today')
+  }
+  if (isoDate === isoDaysFromToday(-1)) {
+    return t('home.released.yesterday')
+  }
+  const date = new Date(`${isoDate}T12:00:00Z`)
+  if (isoDate >= isoDaysFromToday(-6)) {
+    const day = new Intl.DateTimeFormat(currentLocale(), { weekday: 'long' }).format(date)
+    return t('home.released.weekday', { day })
+  }
+  const day = new Intl.DateTimeFormat(currentLocale(), { day: 'numeric', month: 'short' }).format(date)
+  return t('home.released.date', { date: day })
+}
+
+/** Compact future-day label: Today, Tomorrow, or "Tue 15". */
+export function compactDayLabel(isoDate: string): string {
+  if (isoDate === todayIsoDate()) {
+    return t('date.today')
+  }
+  if (isoDate === isoDaysFromToday(1)) {
+    return t('date.tomorrow')
+  }
+  return capitalize(
+    new Intl.DateTimeFormat(currentLocale(), { weekday: 'short', day: 'numeric' }).format(
+      new Date(`${isoDate}T12:00:00Z`),
+    ),
+  )
+}
+
 export function formatNumber(value: number): string {
   return new Intl.NumberFormat(currentLocale()).format(value)
 }

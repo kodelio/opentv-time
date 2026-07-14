@@ -3,10 +3,7 @@ const route = useRoute()
 const { t } = useI18n()
 
 function isActive(to: string): boolean {
-  if (to === '/') {
-    return route.path === '/'
-  }
-  return route.path.startsWith(to)
+  return isNavItemActive(to, route.path)
 }
 </script>
 

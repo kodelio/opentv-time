@@ -1,4 +1,4 @@
 import { useDb } from '../db/client'
-import { upNext } from '../services/home/upNext'
+import { homeSummary } from '../services/home/homeSummary'
 
-export default defineEventHandler(() => upNext(useDb()))
+export default defineEventHandler(() => homeSummary(useDb()))

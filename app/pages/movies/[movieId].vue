@@ -10,6 +10,11 @@ const { data: movie, refresh, error } = await useFetch(() => `/api/movies/${movi
 
 const modalOpen = ref(false)
 
+const lastWatchedAt = computed(() => {
+  const dates = (movie.value?.watches ?? []).map(watch => watch.watchedAt)
+  return dates.length > 0 ? dates.toSorted((a, b) => b.localeCompare(a))[0] : null
+})
+
 function openModal() {
   modalOpen.value = true
 }
@@ -69,7 +74,16 @@ async function toggleWatchlist() {
   </UEmpty>
 
   <div v-else-if="movie">
-    <div class="relative -mx-4 -mt-6 mb-4 h-56 overflow-hidden md:h-80 md:rounded-b-2xl">
+    <UButton
+      to="/library"
+      icon="i-lucide-undo-2"
+      :label="t('show.backToLibrary')"
+      variant="link"
+      color="neutral"
+      class="-ml-1 mb-2"
+    />
+
+    <div class="relative -mx-4 mb-4 h-52 overflow-hidden md:h-80 md:rounded-b-2xl">
       <MediaTmdbImage :path="movie.backdropPath" :alt="movie.title" kind="backdrop" />
       <div class="hero-gradient absolute inset-0" />
     </div>
@@ -89,20 +103,30 @@ async function toggleWatchlist() {
           <template v-if="movie.runtime"> · {{ formatDuration(movie.runtime) }}</template>
         </p>
         <div class="mt-2 flex flex-wrap gap-1.5">
-          <UBadge
+          <span
             v-for="genre in movie.genres"
             :key="genre"
-            :label="genre"
-            color="neutral"
-            variant="subtle"
-            size="sm"
-          />
+            class="rounded-md bg-elevated px-2 py-0.5 text-xs font-medium text-toned ring-1 ring-white/15"
+          >{{ genre }}</span>
         </div>
       </div>
     </div>
 
     <div class="mt-4 flex flex-wrap items-center gap-2">
-      <UButton :label="t('movie.markWatched')" icon="i-lucide-check" @click="openModal" />
+      <span
+        v-if="lastWatchedAt"
+        class="inline-flex items-center gap-1.5 rounded-md bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary ring-1 ring-primary/25"
+      >
+        <UIcon name="i-lucide-eye" class="size-3.5" />
+        {{ t('library.seenOn', { date: formatDate(lastWatchedAt) }) }}
+      </span>
+      <UButton
+        :label="lastWatchedAt ? t('movie.watchAgain') : t('movie.markWatched')"
+        :icon="lastWatchedAt ? 'i-lucide-plus' : 'i-lucide-check'"
+        :color="lastWatchedAt ? 'neutral' : 'primary'"
+        :variant="lastWatchedAt ? 'soft' : 'solid'"
+        @click="openModal"
+      />
       <UButton
         :label="movie.inWatchlist ? t('movie.inWatchlist') : t('common.watchlist')"
         :icon="movie.inWatchlist ? 'i-lucide-bookmark-check' : 'i-lucide-bookmark-plus'"
@@ -116,35 +140,25 @@ async function toggleWatchlist() {
       {{ movie.overview }}
     </p>
 
-    <section v-if="movie.watches.length > 0" class="mt-6">
-      <h2 class="mb-2 font-medium">
+    <section v-if="movie.watches.length > 0" class="panel mt-6 max-w-lg p-4">
+      <h3 class="mb-3 flex items-center gap-2 text-sm font-medium">
         {{ t('movie.watches') }}
-        <UBadge
-          v-if="movie.watches.length > 1"
-          :label="`×${movie.watches.length}`"
-          color="neutral"
-          variant="subtle"
-          size="sm"
-        />
-      </h2>
-      <ul class="divide-y divide-default">
-        <li
-          v-for="watch in movie.watches"
-          :key="watch.id"
-          class="flex items-center justify-between py-2 text-sm"
-        >
-          <span>
-            <UIcon name="i-lucide-eye" class="mr-2 inline size-4 text-primary" />
-            {{ formatDate(watch.watchedAt) }}
-          </span>
-          <UButton
-            icon="i-lucide-trash-2"
-            color="neutral"
-            variant="ghost"
-            size="sm"
+        <span v-if="movie.watches.length > 1" class="text-xs font-normal text-dimmed">
+          ×{{ movie.watches.length }}
+        </span>
+      </h3>
+      <ul class="space-y-2">
+        <li v-for="watch in movie.watches" :key="watch.id" class="flex items-center gap-3">
+          <UIcon name="i-lucide-eye" class="size-4 shrink-0 text-primary" />
+          <span class="flex-1 text-sm">{{ formatDate(watch.watchedAt) }}</span>
+          <button
+            type="button"
             :aria-label="t('movie.deleteWatch')"
+            class="flex size-7 shrink-0 items-center justify-center rounded-lg text-dimmed transition-colors hover:bg-white/5 hover:text-default"
             @click="deleteWatch(watch.id)"
-          />
+          >
+            <UIcon name="i-lucide-trash-2" class="size-3.5" />
+          </button>
         </li>
       </ul>
     </section>

@@ -67,45 +67,49 @@ function openModal(movieId: number, title: string) {
     </UEmpty>
 
     <div v-else class="space-y-2">
-      <UCard v-for="item in filteredItems" :key="item.id" :ui="{ body: 'p-3 sm:p-3' }">
-        <div class="flex items-center gap-3">
-          <NuxtLink
-            :to="item.mediaType === 'movie' ? `/movies/${item.mediaId}` : `/shows/${item.mediaId}`"
-            class="block w-12 shrink-0"
-          >
-            <div class="aspect-[2/3] overflow-hidden rounded-md">
-              <MediaTmdbImage :path="item.posterPath" :alt="item.title" kind="posterSmall" />
-            </div>
-          </NuxtLink>
-          <div class="min-w-0 flex-1">
-            <NuxtLink
-              :to="item.mediaType === 'movie' ? `/movies/${item.mediaId}` : `/shows/${item.mediaId}`"
-              class="block truncate font-medium"
-            >
-              {{ item.title }}
-            </NuxtLink>
-            <p class="text-xs text-muted">
-              {{ item.mediaType === 'movie' ? t('common.movie') : t('common.show') }}
-              <template v-if="item.releaseDate"> · {{ yearOf(item.releaseDate) }}</template>
-            </p>
+      <div
+        v-for="item in filteredItems"
+        :key="item.id"
+        class="flex items-center gap-3 rounded-[10px] bg-muted p-3 ring-1 ring-white/8"
+      >
+        <NuxtLink
+          :to="item.mediaType === 'movie' ? movieRoute(item.mediaId) : showRoute(item.mediaId)"
+          class="block w-12 shrink-0"
+        >
+          <div class="aspect-[2/3] overflow-hidden rounded-md">
+            <MediaTmdbImage :path="item.posterPath" :alt="item.title" kind="posterSmall" />
           </div>
-          <UButton
-            v-if="item.mediaType === 'movie'"
-            icon="i-lucide-check"
-            color="primary"
-            variant="soft"
-            :aria-label="t('common.watchNow')"
-            @click="openModal(item.mediaId, item.title)"
-          />
-          <UButton
-            icon="i-lucide-x"
-            color="neutral"
-            variant="ghost"
-            :aria-label="t('library.removeFromWatchlist')"
-            @click="removeItem(item.id)"
-          />
+        </NuxtLink>
+        <div class="min-w-0 flex-1">
+          <NuxtLink
+            :to="item.mediaType === 'movie' ? movieRoute(item.mediaId) : showRoute(item.mediaId)"
+            class="block truncate font-medium hover:text-highlighted"
+          >
+            {{ item.title }}
+          </NuxtLink>
+          <p class="text-xs text-muted">
+            {{ item.mediaType === 'movie' ? t('common.movie') : t('common.show') }}
+            <template v-if="item.releaseDate"> · {{ yearOf(item.releaseDate) }}</template>
+          </p>
         </div>
-      </UCard>
+        <button
+          v-if="item.mediaType === 'movie'"
+          type="button"
+          :aria-label="t('common.watchNow')"
+          class="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors hover:bg-primary/20"
+          @click="openModal(item.mediaId, item.title)"
+        >
+          <UIcon name="i-lucide-check" class="size-4" />
+        </button>
+        <button
+          type="button"
+          :aria-label="t('library.removeFromWatchlist')"
+          class="flex size-8 shrink-0 items-center justify-center rounded-lg text-muted transition-colors hover:bg-white/5 hover:text-default"
+          @click="removeItem(item.id)"
+        >
+          <UIcon name="i-lucide-x" class="size-4" />
+        </button>
+      </div>
     </div>
 
     <WatchMarkSeenModal v-model:open="modal.open" :title="modal.title" @confirm="markMovieSeen" />

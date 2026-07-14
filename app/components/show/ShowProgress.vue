@@ -29,9 +29,19 @@ const { t } = useI18n()
     </div>
   </div>
 
-  <div v-else class="mt-1 flex items-center gap-2">
-    <UProgress :model-value="percent" size="sm" class="flex-1" />
-    <span class="whitespace-nowrap text-xs tabular-nums text-muted">
+  <div
+    v-else
+    class="flex items-center gap-2"
+    role="progressbar"
+    :aria-valuenow="percent"
+    aria-valuemin="0"
+    aria-valuemax="100"
+    :aria-label="t('show.progressAria', { watched, aired })"
+  >
+    <div class="h-1.5 flex-1 overflow-hidden rounded-full bg-accented">
+      <div class="h-full rounded-full bg-primary" :style="{ width: `${percent}%` }" />
+    </div>
+    <span class="shrink-0 whitespace-nowrap text-xs tabular-nums text-muted">
       {{ watched }}/{{ aired }}
     </span>
   </div>

@@ -43,12 +43,12 @@ const maxGenreCount = computed(() => Math.max(1, ...(genres.value ?? []).map(gen
       />
     </div>
 
-    <div class="mt-4 grid gap-4 lg:grid-cols-2">
+    <div class="mt-4 grid items-start gap-4 lg:grid-cols-2">
       <StatsMonthlyBarChart v-if="monthly" :data="monthly" />
       <StatsTopShowsList v-if="top && top.length > 0" :items="top" />
     </div>
 
-    <UCard v-if="genres && genres.length > 0" class="mt-4">
+    <div v-if="genres && genres.length > 0" class="panel mt-4 p-4">
       <h3 class="mb-3 text-sm font-medium">{{ t('stats.mostWatchedGenres') }}</h3>
       <ul class="space-y-2">
         <li v-for="genre in genres" :key="genre.genre" class="flex items-center gap-3">
@@ -62,6 +62,6 @@ const maxGenreCount = computed(() => Math.max(1, ...(genres.value ?? []).map(gen
           <span class="w-10 text-right text-xs tabular-nums text-muted">{{ genre.count }}</span>
         </li>
       </ul>
-    </UCard>
+    </div>
   </div>
 </template>
